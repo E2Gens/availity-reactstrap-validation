@@ -43,6 +43,7 @@ export default class AvCheckbox extends Component {
       ...attributes} = this.props;
 
     const groupProps = this.context.Group.getProps();
+    console.log(groupProps);
 
     const touched = this.context.FormCtrl.isTouched(groupProps.name);
     const hasError = this.context.FormCtrl.hasError(groupProps.name);

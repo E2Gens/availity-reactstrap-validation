@@ -20,6 +20,7 @@ const getInputErrorMessage = (input, ruleName) => {
 
 export default class AvForm extends InputContainer {
   _isMounted = false;
+  _validators = {};
 
   static childContextTypes = {
     FormCtrl: PropTypes.object.isRequired,
@@ -159,9 +160,7 @@ export default class AvForm extends InputContainer {
 
   componentDidMount() {
     this._isMounted = true;
-    super.componentDidMount();
-
-    this._validators = {};
+    // super.componentDidMount();
   }
 
   registerInput(input, updater) {

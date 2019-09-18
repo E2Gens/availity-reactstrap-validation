@@ -11,7 +11,9 @@ function validComponent(input) {
 }
 
 export default class InputContainer extends Component {
-  componentDidMount() {
+  constructor(props) {
+    super(props);
+
     this._updaters = {};
     this._inputs = {};
   }
