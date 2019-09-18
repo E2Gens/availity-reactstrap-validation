@@ -70,22 +70,22 @@ export default class AvRadioGroup extends Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.value = this.props.value || this.getDefaultValue().value;
     this.setState({ value: this.value });
     this.updateValidations();
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.name !== this.props.name) {
+  componentDidUpdate(prevProps) {
+    if (prevProps.name !== this.props.name) {
       this.context.FormCtrl.unregister(this);
     }
-    if (nextProps.value !== this.props.value) {
-      this.value = nextProps.value;
-      this.setState({ value: nextProps.value });
+    if (prevProps.value !== this.props.value) {
+      this.value = this.props.value;
+      this.setState({ value: this.props.value });
     }
-    if (!isEqual(nextProps, this.props)) {
-      this.updateValidations(nextProps);
+    if (!isEqual(prevProps, this.props)) {
+      this.updateValidations(this.props);
     }
   }
 
