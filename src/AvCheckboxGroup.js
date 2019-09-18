@@ -64,9 +64,8 @@ export default class AvCheckboxGroup extends Component {
         getProps: () => ({
           name: this.props.name,
           inline: this.props.inline,
-          required:
-            this.props.required ||
-            !!(this.validations.required && this.validations.required.value),
+          required: this.props.required || (this.validations ?
+            !!(this.validations.required && this.validations.required.value) : false),
           value: this.value,
         }),
         update: updateGroup,
