@@ -22,7 +22,7 @@
     "lint": "eslint src",
     "create-release": "npm test && sh ./scripts/release",
     "publish-release": "npm test && sh ./scripts/publish",
-    "prepare": "cross-env WEBPACK_BUILD=production webpack --progress --colors && webpack --colors"
+    "prepare": "npm run build"
   },
   "repository": {
     "type": "git",
