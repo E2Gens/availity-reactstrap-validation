@@ -86,7 +86,6 @@ export default class AvForm extends InputContainer {
 
   handleSubmit = async (e) => {
     const savedEvent = e;
-    console.log(savedEvent);
     
     if (this.props.beforeSubmitValidation) {
       this.props.beforeSubmitValidation(savedEvent);
