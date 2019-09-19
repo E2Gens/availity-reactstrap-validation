@@ -1,6 +1,6 @@
 {
   "name": "availity-reactstrap-validation",
-  "version": "2.6.0",
+  "version": "2.6.1",
   "author": "Evan Sharp <evan.sharp@availity.com>",
   "description": "Form validation helpers for reactstrap",
   "main": "lib/index.js",
@@ -21,11 +21,12 @@
     "prebuild": "babel src --out-dir lib",
     "lint": "eslint src",
     "create-release": "npm test && sh ./scripts/release",
-    "publish-release": "npm test && sh ./scripts/publish"
+    "publish-release": "npm test && sh ./scripts/publish",
+    "prepare": "npm run build"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Availity/availity-reactstrap-validation.git"
+    "url": "https://github.com/lexithium/availity-reactstrap-validation.git"
   },
   "files": [
     "LICENSE",
@@ -50,9 +51,9 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Availity/availity-reactstrap-validation/issues"
+    "url": "https://github.com/lexithium/availity-reactstrap-validation/issues"
   },
-  "homepage": "https://github.com/Availity/availity-reactstrap-validation",
+  "homepage": "https://github.com/lexithium/availity-reactstrap-validation",
   "dependencies": {
     "babel-runtime": "^6.26.0",
     "classnames": "^2.2.6",

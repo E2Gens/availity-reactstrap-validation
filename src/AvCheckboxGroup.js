@@ -64,9 +64,8 @@ export default class AvCheckboxGroup extends Component {
         getProps: () => ({
           name: this.props.name,
           inline: this.props.inline,
-          required:
-            this.props.required ||
-            !!(this.validations.required && this.validations.required.value),
+          required: this.props.required || (this.validations ?
+            !!(this.validations.required && this.validations.required.value) : false),
           value: this.value,
         }),
         update: updateGroup,
@@ -77,22 +76,22 @@ export default class AvCheckboxGroup extends Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.value = this.props.value || this.getDefaultValue().value;
     this.setState({ value: this.value });
     this.updateValidations();
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.name !== this.props.name) {
+  componentDidUpdate(prevProps) {
+    if (prevProps.name !== this.props.name) {
       this.context.FormCtrl.unregister(this);
     }
-    if (nextProps.value !== this.props.value) {
-      this.value = nextProps.value;
-      this.setState({ value: nextProps.value });
+    if (prevProps.value !== this.props.value) {
+      this.value = this.props.value;
+      this.setState({ value: this.props.value });
     }
-    if (!isEqual(nextProps, this.props)) {
-      this.updateValidations(nextProps);
+    if (!isEqual(prevProps, this.props)) {
+      this.updateValidations(this.props);
     }
   }
 

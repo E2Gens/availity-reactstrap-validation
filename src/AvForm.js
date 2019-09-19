@@ -20,6 +20,7 @@ const getInputErrorMessage = (input, ruleName) => {
 
 export default class AvForm extends InputContainer {
   _isMounted = false;
+  _validators = {};
 
   static childContextTypes = {
     FormCtrl: PropTypes.object.isRequired,
@@ -84,11 +85,13 @@ export default class AvForm extends InputContainer {
   validations = {};
 
   handleSubmit = async (e) => {
+    const savedEvent = e;
+    
     if (this.props.beforeSubmitValidation) {
-      this.props.beforeSubmitValidation(e);
+      this.props.beforeSubmitValidation(savedEvent);
     }
 
-    if (e && typeof e.preventDefault === 'function') {
+    if (typeof e.preventDefault === 'function') {
       e.preventDefault();
     }
 
@@ -104,22 +107,23 @@ export default class AvForm extends InputContainer {
 
     this.updateInputs();
 
-    this.props.onSubmit(e, errors, values);
+    this.props.onSubmit(savedEvent, errors, values);
     if (isValid) {
-      this.props.onValidSubmit(e, values);
+      this.props.onValidSubmit(savedEvent, values);
     } else {
-      this.props.onInvalidSubmit(e, errors, values);
+      this.props.onInvalidSubmit(savedEvent, errors, values);
     }
 
     !this.state.submitted && this._isMounted && this.setState({submitted: true});
   };
 
   handleNonFormSubmission = (event) => {
+    const savedEvent = event;
     if (this.props.onKeyDown(event) !== false) {
       if (event.type === 'keydown' && (event.which === 13 || event.keyCode === 13 || event.key === 'Enter')) {
         event.stopPropagation();
         event.preventDefault();
-        this.handleSubmit(event);
+        this.handleSubmit(savedEvent);
       }
     }
   };
@@ -154,11 +158,9 @@ export default class AvForm extends InputContainer {
     this._isMounted = false;
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this._isMounted = true;
-    super.componentWillMount();
-
-    this._validators = {};
+    // super.componentDidMount();
   }
 
   registerInput(input, updater) {
@@ -212,7 +214,7 @@ export default class AvForm extends InputContainer {
         action="#"
         {...attributes}
         className={classes}
-        onSubmit={this.handleSubmit}
+        onSubmit={(event) => { event.persist(); this.handleSubmit(event) } }
       />
     );
   }
