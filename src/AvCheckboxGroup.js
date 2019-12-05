@@ -12,6 +12,8 @@ const htmlValidationAttrs = ['required'];
 const noop = () => {};
 
 export default class AvCheckboxGroup extends Component {
+  _isMounted = false;
+
   static propTypes = Object.assign({}, FormGroup.propTypes, {
     name: PropTypes.string.isRequired,
   });
@@ -77,6 +79,7 @@ export default class AvCheckboxGroup extends Component {
   }
 
   componentDidMount() {
+    this._isMounted = true;
     this.value = this.props.value || this.getDefaultValue().value;
     this.setState({ value: this.value });
     this.updateValidations();
@@ -96,6 +99,7 @@ export default class AvCheckboxGroup extends Component {
   }
 
   componentWillUnmount() {
+    this._isMounted = false;
     this.context.FormCtrl.unregister(this);
   }
 
@@ -122,12 +126,12 @@ export default class AvCheckboxGroup extends Component {
 
   async validate() {
     await this.context.FormCtrl.validate(this.props.name);
-    this.updateInputs();
+    this._isMounted && this.updateInputs();
   }
 
   update() {
     this.setState({});
-    this.updateInputs();
+    this._isMounted && this.updateInputs();
   }
 
   _inputs = [];
