@@ -100,7 +100,7 @@ export default class AvField extends Component {
 
     const feedback = validation.errorMessage ? (<AvFeedback>{validation.errorMessage}</AvFeedback>) : null;
     const help = helpMessage ? (<FormText>{helpMessage}</FormText>) : null;
-    const inputRow = row ? <Col {...col}>{input}{feedback}{help}</Col> : (inputGroup ? <InputGroup>{input} <InputGroupAddon addonType={inputGroup.addonType}><InputGroupText>{inputGroup.text}</InputGroupText></InputGroupAddon></InputGroup> : input);
+    const inputRow = row ? <Col {...col}>{input}{feedback}{help}</Col> : (inputGroup ? <InputGroup>{input} <InputGroupAddon addonType={inputGroup.addonType}><InputGroupText>{inputGroup.text}</InputGroupText></InputGroupAddon>{feedback}</InputGroup> : input);
     const check = attributes.type === 'checkbox';
 
     if (
@@ -125,7 +125,7 @@ export default class AvField extends Component {
           {label}
         </Label>}
         {!check && inputRow}
-        {!row && feedback}
+        {!row && !inputGroup && feedback}
         {!row && help}
       </AvGroup>
     );
