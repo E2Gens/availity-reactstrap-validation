@@ -85,8 +85,7 @@ export default class AvField extends Component {
       });
     }
 
-    const input = inputGroup ? (<InputGroup>
-      <AvInput
+    const input = (<AvInput
         id={id}
         className={inputClass}
         size={size}
@@ -95,26 +94,13 @@ export default class AvField extends Component {
         {...attributes}
       >
         {children}
-      </AvInput>
-      <InputGroupAddon addonType={inputGroup.addonType}>
-        <InputGroupText>{inputGroup.text}</InputGroupText>
-      </InputGroupAddon>
-    </InputGroup>) : (<AvInput
-      id={id}
-      className={inputClass}
-      size={size}
-      disabled={disabled}
-      readOnly={readOnly}
-      {...attributes}
-    >
-      {children}
-    </AvInput>);
+      </AvInput>);
 
     const validation = this.context.FormCtrl.getInputState(this.props.name);
 
     const feedback = validation.errorMessage ? (<AvFeedback>{validation.errorMessage}</AvFeedback>) : null;
     const help = helpMessage ? (<FormText>{helpMessage}</FormText>) : null;
-    const inputRow = row ? <Col {...col}>{input}{feedback}{help}</Col> : input;
+    const inputRow = row ? <Col {...col}>{input}{feedback}{help}</Col> : (inputGroup ? <InputGroup>{input} <InputGroupAddon addonType={inputGroup.addonType}><InputGroupText>{inputGroup.text}</InputGroupText></InputGroupAddon></InputGroup> : input);
     const check = attributes.type === 'checkbox';
 
     if (
