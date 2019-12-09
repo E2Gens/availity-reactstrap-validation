@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import AvInput from './AvInput';
 import AvGroup from './AvGroup';
 import AvFeedback from './AvFeedback';
-import {Col, FormText, Label, CustomInput} from 'reactstrap';
+import {Col, FormText, Label, CustomInput, InputGroup, InputGroupAddon, InputGroupText} from 'reactstrap';
 
 const colSizes = ['xs', 'sm', 'md', 'lg', 'xl'];
 
@@ -27,6 +27,7 @@ export default class AvField extends Component {
     labelAttrs: PropTypes.object,
     groupAttrs: PropTypes.object,
     grid: PropTypes.object,
+    inputGroup: PropTypes.object,
   });
 
   static contextTypes = {
@@ -67,6 +68,7 @@ export default class AvField extends Component {
       disabled,
       readOnly,
       grid,
+      inputGroup,
       labelAttrs,
       groupAttrs,
       ...attributes
@@ -83,7 +85,21 @@ export default class AvField extends Component {
       });
     }
 
-    const input = (<AvInput
+    const input = inputGroup ? (<InputGroup>
+      <AvInput
+        id={id}
+        className={inputClass}
+        size={size}
+        disabled={disabled}
+        readOnly={readOnly}
+        {...attributes}
+      >
+        {children}
+      </AvInput>
+      <InputGroupAddon addonType={inputGroup.addonType}>
+        <InputGroupText>{inputGroup.text}</InputGroupText>
+      </InputGroupAddon>
+    </InputGroup>) : (<AvInput
       id={id}
       className={inputClass}
       size={size}
