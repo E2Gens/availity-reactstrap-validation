@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import {Input} from 'reactstrap';
+import InputMask from 'react-input-mask';
 import AvBaseInput from './AvBaseInput';
 
 

@@ -59,7 +59,8 @@
     "classnames": "^2.2.6",
     "dayjs": "^1.8.13",
     "lodash": "^4.17.10",
-    "prop-types": "^15.6.2"
+    "prop-types": "^15.6.2",
+    "react-input-mask": "^2.0.4"
   },
   "peerDependencies": {
     "react": "^0.14.9 || ^15.3.0 || ^16.0.0",

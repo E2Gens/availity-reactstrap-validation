@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import AvInput from './AvInput';
 import AvGroup from './AvGroup';
 import AvFeedback from './AvFeedback';
-import {Col, FormText, Label, CustomInput, InputGroup, InputGroupAddon, InputGroupText} from 'reactstrap';
+import {Col, FormText, Label, Input, CustomInput, InputGroup, InputGroupAddon, InputGroupText} from 'reactstrap';
+import InputMask from 'react-input-mask';
 
 const colSizes = ['xs', 'sm', 'md', 'lg', 'xl'];
 
@@ -28,6 +29,14 @@ export default class AvField extends Component {
     groupAttrs: PropTypes.object,
     grid: PropTypes.object,
     inputGroup: PropTypes.object,
+    mask: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.arrayOf(
+        PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(RegExp)])
+      )
+    ]),
+    maskPlaceholder: PropTypes.string,
+    alwaysShowMask: PropTypes.bool
   });
 
   static contextTypes = {
@@ -91,6 +100,7 @@ export default class AvField extends Component {
         size={size}
         disabled={disabled}
         readOnly={readOnly}
+        tag={this.props.mask ? InputMask : Input}
         {...attributes}
       >
         {children}
